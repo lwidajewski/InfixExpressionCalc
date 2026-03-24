@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="InfixExpressionCalc/InfixExpressionCalc.vcxproj" />
+  <Project Path="InfixExpressionCalc/InfixExpressionCalc.vcxproj" Id="1a6ec4f0-2571-47db-8a07-9c426d7c039b" />
 </Solution>
