@@ -8,9 +8,21 @@ using namespace std;
 int main() {
 	BinaryTree tree;
 
-	string infix = "35+42";
+	string infix = "3+5";
 
-	tree.infixToPostfix(infix, postfix, size);
+	tree.buildTree(infix);
+
+	cout << "Prefix: ";
+	tree.printTreePre();
+	cout << endl;
+
+	cout << "Postfix: ";
+	tree.printTreePost();
+	cout << endl;
+	
+	cout << "Result: ";
+	cout << tree.evaluate();
+	cout << endl;
 
 
 	return 0;
