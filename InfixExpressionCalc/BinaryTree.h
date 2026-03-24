@@ -24,16 +24,17 @@ class BinaryTree {
 		// modifiers
 		void buildTree(std::string infix);
 		Node* buildTreeFromPostfix(std::string postfix[], int& index);
-		void deleteNode(std::string x);
 		
 		// calculator related functions
 		bool isOperator(std::string x);
 		int precedence(char x);
 		void infixToPostfix(std::string infix, std::string postfix[], int& size);
 		int calcTree(Node* curr);
+		int evaluate();
 
 		// destructor
 		~BinaryTree();
+		void deleteTree(Node* curr);
 };
 
 #endif
