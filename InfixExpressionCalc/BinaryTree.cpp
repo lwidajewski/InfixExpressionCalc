@@ -132,9 +132,23 @@ void BinaryTree::infixToPostfix(string infix, string postfix[], int& size) {
 		if (c == ' ') {
 			continue;
 		}
+
+		// check for a negative number
+		// can be at the start of an expression  -->  -5+2
+		// after a '('  -->  3+4(-4*2)
+		// after an operator  -->  1+-5
+		// probably are more but these are the cases I am handling
+		bool negativeDigit = (i == 0 || infix[i - 1] == '(' || isOperator(string(1, infix[i - 1])));
+
+
 		// if it's a digit add it to the string
-		if (isdigit(c)) {
+		if (isdigit(c) || (c == '-' && negativeDigit)) {
 			string digit = "";
+
+			if (c == '-') {
+				digit += c;
+				i++;
+			}
 
 			// check for multi-digit numbers
 			while (i < infix.length() && isdigit(infix[i])) {
