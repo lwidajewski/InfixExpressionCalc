@@ -1,13 +1,10 @@
 #ifndef CHARSTACK_H
 #define CHARSTACK_H
 
-struct Node {
-	char data;
-	Node* next;
-};
 
 class CharStack {
 	private:
+		struct Node;
 		Node* top;
 	public:
 		// constructor
