@@ -5,10 +5,17 @@
 using namespace std;
 
 
+struct CharStack::Node {
+	char data;
+	Node* next;
+};
+
+// constructor
 CharStack::CharStack() {
 	top = nullptr;
 };
 
+// check if stack is empty or not
 bool CharStack::isEmpty() {
 	if (top == nullptr) {
 		return true;
@@ -18,6 +25,7 @@ bool CharStack::isEmpty() {
 	};
 };
 
+// get the char fromt the top of the stack
 char CharStack::peek() {
 	if (top == nullptr) {
 		return '\0';
@@ -27,6 +35,7 @@ char CharStack::peek() {
 	};
 };
 
+// put a char at the top of the stack
 void CharStack::push(char x) {
 	Node* temp = new Node;
 	temp->data = x;
@@ -34,6 +43,7 @@ void CharStack::push(char x) {
 	top = temp;
 };
 
+// remove a char from the top of the stack
 void CharStack::pop() {
 	if (isEmpty()) {
 		cout << "Char stack empty" << endl;
@@ -46,6 +56,7 @@ void CharStack::pop() {
 	};
 };
 
+// destructor
 CharStack::~CharStack() {
 	while (!isEmpty()) {
 		Node* temp = top;
