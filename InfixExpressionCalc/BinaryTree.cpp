@@ -80,7 +80,7 @@ void BinaryTree::buildTree(string infix) {
 	string postfix[100];
 	int size;
 
-	infixToPostfix(infix, postfix, size);
+	infixToPostfix(infix, postfix, size); // convert infix input to postfix
 
 	int index = size - 1;
 	root = buildTreeFromPostfix(postfix, index);
@@ -88,7 +88,7 @@ void BinaryTree::buildTree(string infix) {
 
 // builds the tree based on the converted infix expression (is now postfix)
 BinaryTree::Node* BinaryTree::buildTreeFromPostfix(string postfix[], int& index) {
-	if (index < 0) {
+	if (index < 0) { // nothing left stop looping
 		return nullptr;
 	}
 	else {
@@ -97,14 +97,14 @@ BinaryTree::Node* BinaryTree::buildTreeFromPostfix(string postfix[], int& index)
 		node->left = nullptr;
 		node->right = nullptr;
 
-		index--;
+		index--; // since it's postfix we move right to left in array
 
-		if (isOperator(node->data)) {
+		if (isOperator(node->data)) { // check if the data was an operator or not (have to build the leaf nodes for parent if it was)
 			node->right = buildTreeFromPostfix(postfix, index);
 			node->left = buildTreeFromPostfix(postfix, index);
 		}
 
-		return node;
+		return node; // will end on the root node
 	};
 };
 
@@ -145,6 +145,7 @@ void BinaryTree::infixToPostfix(string infix, string postfix[], int& size) {
 		if (isdigit(c) || (c == '-' && negativeDigit)) {
 			string digit = "";
 
+			// negative number
 			if (c == '-') {
 				digit += c;
 				i++;
@@ -167,6 +168,7 @@ void BinaryTree::infixToPostfix(string infix, string postfix[], int& size) {
 		else if (c == ')') {
 			while (charStack.peek() != '(') {
 				// basically goes through adding operators onto the postfix expression until you find '('
+				// this was fun to write out on a piece of paper
 				postfix[size++] = string(1, charStack.peek());
 				charStack.pop();
 			}
@@ -192,25 +194,37 @@ void BinaryTree::infixToPostfix(string infix, string postfix[], int& size) {
 // ------------------- Calculation Related Functions -------------------
 // Goes through the tree and calculates everything using recursion
 int BinaryTree::calcTree(Node* curr) {
-	if (curr == nullptr) {
+	if (curr == nullptr) { // check to see if there's something in tree
 		return 0;
 	}
 	else {
+		// is a number
 		if (!isOperator(curr->data)) {
 			return stoi(curr->data); // convert data to an integer
 		}
+		// is an operator
 		else {
 			int left = calcTree(curr->left);
 			int right = calcTree(curr->right);
 
-			if (curr->data == "+") return left + right;
-			if (curr->data == "-") return left - right;
-			if (curr->data == "*") return left * right;
-			if (curr->data == "/") return left / right;
+			// check which operator it is and do the correct calculation
+			if (curr->data == "+") return left + right; // add
+			if (curr->data == "-") return left - right; // sub
+			if (curr->data == "*") return left * right; // multi
+			// division also checks a divide by 0
+			if (curr->data == "/") {
+				if (right == 0) {
+					cout << "Division by ";
+					return 0;
+				}
+				else {
+					return left / right; // divide
+				};
+			};
 
 			return 0;
-		}
-	}
+		};
+	};
 };
 
 // checks if a string is an operator or not
